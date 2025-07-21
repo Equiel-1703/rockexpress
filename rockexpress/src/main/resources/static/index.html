@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Carrinho - RockExpress</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/script.js" defer></script>
+</head>
+<body>
+<h1>Adicionar Produto ao Carrinho</h1>
+
+<form id="carrinho-form">
+    <label for="produtoId">ID do Produto:</label><br>
+    <input type="number" id="produtoId" required><br><br>
+
+    <label for="quantidade">Quantidade:</label><br>
+    <input type="number" id="quantidade" value="1" min="1" required><br><br>
+
+    <label for="tamanho">Tamanho:</label><br>
+    <select id="tamanho" required>
+        <option value="PP">PP</option>
+        <option value="P">P</option>
+        <option value="M" selected>M</option>
+        <option value="G">G</option>
+        <option value="GG">GG</option>
+    </select><br><br>
+
+    <button type="submit">Adicionar ao Carrinho</button>
+</form>
+
+<hr>
+
+<h3>Resposta da API:</h3>
+<pre id="resposta"></pre>
+
+<script>
+    const form = document.getElementById("carrinho-form");
+    const resposta = document.getElementById("resposta");
+
+    form.addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const produtoId = document.getElementById("produtoId").value;
+      const quantidade = document.getElementById("quantidade").value;
+      const tamanho = document.getElementById("tamanho").value;
+
+      const carrinho = {
+        itens: [
+          {
+            produto: { id: parseInt(produtoId) },
+            quantidade: parseInt(quantidade),
+            tamanhoSelecionado: tamanho  // 🔄 Atualizado aqui!
+          }
+        ]
+      };
+
+      try {
+        const res = await fetch("http://localhost:8080/carrinhos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(carrinho)
+        });
+
+        const data = await res.json();
+        resposta.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resposta.textContent = "Erro: " + err.message;
+      }
+    });
+</script>
+</body>
+</html>
