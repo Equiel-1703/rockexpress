@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import './ProductPage.css';
+import React, { useState } from "react";
+import "./ProductPage.css";
 
 const ProductPage = () => {
-  const [selectedSize, setSelectedSize] = useState('');
-  const [selectedColor, setSelectedColor] = useState('');
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(2);
 
   return (
@@ -12,8 +12,8 @@ const ProductPage = () => {
 
       <div className="product-container">
         <div className="product-images">
-          <img src="/public/produtos/img1.png" alt="Produto" />
-          <img src="/public/produtos/img2.png" alt="Produto" />
+          <img src="/produtos/img1.png" alt="Produto" />
+          <img src="/produtos/img2.png" alt="Produto" />
           <div className="placeholder"></div>
           <div className="placeholder"></div>
         </div>
@@ -31,12 +31,16 @@ const ProductPage = () => {
             <p className="label">Cores</p>
             <div className="color-options">
               <div
-                className={`color green ${selectedColor === 'green' ? 'selected' : ''}`}
-                onClick={() => setSelectedColor('green')}
+                className={`color black ${
+                  selectedColor === "black" ? "selected" : ""
+                }`}
+                onClick={() => setSelectedColor("black")}
               ></div>
               <div
-                className={`color black ${selectedColor === 'black' ? 'selected' : ''}`}
-                onClick={() => setSelectedColor('black')}
+                className={`color green ${
+                  selectedColor === "green" ? "selected" : ""
+                }`}
+                onClick={() => setSelectedColor("green")}
               ></div>
             </div>
           </div>
@@ -44,10 +48,12 @@ const ProductPage = () => {
           <div className="section">
             <p className="label">Tamanho</p>
             <div className="size-options">
-              {['PP', 'P', 'M', 'G', 'GG', 'XG'].map((size) => (
+              {["PP", "P", "M", "G", "GG", "XG"].map((size) => (
                 <button
                   key={size}
-                  className={`size-button ${selectedSize === size ? 'active' : ''}`}
+                  className={`size-button ${
+                    selectedSize === size ? "active" : ""
+                  }`}
                   onClick={() => setSelectedSize(size)}
                 >
                   {size}
@@ -59,9 +65,11 @@ const ProductPage = () => {
           <div className="action-row">
             <button className="add-to-cart">Adicionar ao carrinho</button>
             <div className="quantity-control">
-              <button onClick={() => setQuantity(q => Math.max(1, q - 1))}>−</button>
+              <button onClick={() => setQuantity((q) => Math.max(1, q - 1))}>
+                −
+              </button>
               <span>{quantity}</span>
-              <button onClick={() => setQuantity(q => q + 1)}>+</button>
+              <button onClick={() => setQuantity((q) => q + 1)}>+</button>
             </div>
           </div>
         </div>
