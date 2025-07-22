@@ -1,8 +1,33 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-:root {
-  --header-top-bottom-gap: 4rem;
-  --mini-header-top-bottom-gap: 1rem;
+@media (min-width: 930px) {
+  :root {
+    --header-top-bottom-gap: 4rem;
+    --mini-header-top-bottom-gap: 1rem;
+  }
+
+  .header-logo-text h1 {
+    margin: 0;
+
+    font-size: 3rem;
+    line-height: 1.2;
+
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 100;
+    font-style: normal;
+  }
+}
+
+@media (max-width: 929px) {
+  :root {
+    --header-top-bottom-gap: 2rem;
+    --mini-header-top-bottom-gap: 0.5rem;
+  }
+
+  .header-logo-text h1 {
+    visibility: hidden;
+  }
 }
 
 .header {
@@ -46,18 +71,6 @@
   display: flex;
   align-items: center;
   gap: var(--header-top-bottom-gap);
-}
-
-.header-logo-text h1 {
-  margin: 0;
-
-  font-size: 3rem;
-  line-height: 1.2;
-
-  font-family: "Roboto", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 100;
-  font-style: normal;
 }
 
 .header-logo-text h1 strong {
