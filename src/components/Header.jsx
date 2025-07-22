@@ -1,15 +1,64 @@
 import { Link } from 'react-router-dom';
+import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
+import TextField from '@mui/material/TextField';
+import InputAdornment from '@mui/material/InputAdornment';
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
+
 import './Header.css';
 
 export default function Header() {
   return (
     <header className="header">
-      <h1 className="logo">RockExpress</h1>
+      <div className="header-upper">
+        <div className="header-logo-text">
+          <img
+            className='logo'
+            src="logo-rockexpress-semfundo.png"
+            alt="Logo RockExpress"
+          />
+          <h1>Bem vindo(a) ao <br /> <strong>RockExpress</strong></h1>
+        </div>
+        <ShoppingCartRoundedIcon className='header-shopping-cart' />
+      </div>
       <nav className="nav">
-        <Link to="/">Home</Link>
-        <Link to="/carrinho">Carrinho</Link>
-        <Link to="/checkout">Checkout</Link>
-        <Link to="/login">Login</Link>
+        <Link to="/">HOME</Link>
+        <Link to="/carrinho">CARRINHO</Link>
+        <Link to="/checkout">CHECKOUT</Link>
+
+        <TextField
+          id="searchbar"
+          placeholder="Buscar produtos"
+          sx={{
+            width: '100%',
+            '& .MuiInputBase-root': {
+              color: '#fff',
+            },
+            '& .MuiInputLabel-root': {
+              color: '#fff',
+            },
+            '& .MuiInput-underline:before': {
+              borderBottomColor: '#fff',
+            },
+            '& .MuiInput-underline:after': {
+              borderBottomColor: '#fff',
+            },
+            '& .MuiInputAdornment-root': {
+              color: '#fff',
+            },
+          }}
+          slotProps={{
+            input: {
+              startAdornment: (
+                <InputAdornment position="start">
+                  <SearchRoundedIcon sx={{ color: '#fff' }} />
+                </InputAdornment>
+              ),
+            },
+          }}
+          variant="standard"
+        />
+
+        <Link to="/login">LOGIN/CADASTRO</Link>
       </nav>
     </header>
   );
