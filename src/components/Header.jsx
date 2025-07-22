@@ -13,7 +13,7 @@ export default function Header() {
         <div className="header-logo-text">
           <img
             className='logo'
-            src="logo-rockexpress-semfundo.png"
+            src="/logo-rockexpress-semfundo.png"
             alt="Logo RockExpress"
           />
           <h1>Bem vindo(a) ao <br /> <strong>RockExpress</strong></h1>

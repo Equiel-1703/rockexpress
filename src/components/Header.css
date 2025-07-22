@@ -6,7 +6,7 @@
 
 .header {
   background-color: rgba(0, 0, 0, 0.76);
-  background-image: url('guitar.jpg');
+  background-image: url('/guitar.jpg');
   background-size: cover;
   background-blend-mode: overlay;
 
