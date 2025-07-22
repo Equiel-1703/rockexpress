@@ -11,11 +11,13 @@ export default function Header() {
     <header className="header">
       <div className="header-upper">
         <div className="header-logo-text">
-          <img
-            className='logo'
-            src="/logo-rockexpress-semfundo.png"
-            alt="Logo RockExpress"
-          />
+          <Link to="/">
+            <img
+              className='logo'
+              src="/logo-rockexpress-semfundo.png"
+              alt="Logo RockExpress"
+            />
+          </Link>
           <h1>Bem vindo(a) ao <br /> <strong>RockExpress</strong></h1>
         </div>
         <ShoppingCartRoundedIcon className='header-shopping-cart' />

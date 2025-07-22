@@ -10,11 +10,13 @@ export default function Header() {
   return (
     <header className="header">
       <div className="mini-header">
-        <img
-          className='mini-header-logo'
-          src="/logo-rockexpress-semfundo.png"
-          alt="Logo RockExpress"
-        />
+        <Link to="/">
+          <img
+            className='mini-header-logo'
+            src="/logo-rockexpress-semfundo.png"
+            alt="Logo RockExpress"
+          />
+        </Link>
 
         <nav className="nav mini-header-nav">
           <TextField
