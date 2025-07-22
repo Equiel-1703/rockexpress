@@ -1,23 +1,51 @@
-export default function LoginPage() {
+import React, { useState } from "react";
+import "./LoginPage.css";
+import { Link } from "react-router-dom";
+
+const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    console.log("Login:", email, senha);
+    // aqui você pode chamar a API ou redirecionar
+  };
+
   return (
-    <div className="p-6 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Login com Email</h1>
-      <form className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full border p-2 rounded"
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          className="w-full border p-2 rounded"
-        />
-        <button className="bg-black text-white px-4 py-2 rounded w-full">
-          Logar
-        </button>
-      </form>
-      <p className="mt-4 text-center">Ou crie sua conta</p>
+    <div className="login-page">
+      <div className="login-box">
+        <h2>Olá, novamente!</h2>
+        <p className="login-subtitle">Login com Email</p>
+
+        <form onSubmit={handleLogin} className="login-form">
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <input
+            type="password"
+            placeholder="Senha"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
+            required
+          />
+
+          <button type="submit" className="login-button">
+            LOGAR
+          </button>
+        </form>
+
+        <p className="register-link">
+          <Link to="/cadastro">Ou crie sua conta</Link>
+        </p>
+      </div>
     </div>
   );
-}
+};
+
+export default LoginPage;

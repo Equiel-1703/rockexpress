@@ -1,0 +1,161 @@
+.product-page {
+  background: #f0f2f5;
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.breadcrumb {
+  color: #999;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.product-container {
+  display: flex;
+  gap: 2rem;
+  background: white;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.product-images {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  width: 50%;
+}
+
+.product-images img,
+.product-images .placeholder {
+  width: 100%;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  border-radius: 6px;
+  background-color: #ddd;
+}
+
+.product-details {
+  flex: 1;
+}
+
+.product-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.external-icon {
+  font-size: 0.9rem;
+}
+
+.product-price {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.product-description {
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+
+.section {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.color-options {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.color {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+}
+
+.color.green {
+  background-color: #00d26a;
+}
+
+.color.black {
+  background-color: #000;
+}
+
+.color.selected {
+  border: 2px solid #000;
+}
+
+.size-options {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.size-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  background: white;
+  cursor: pointer;
+}
+
+.size-button.active {
+  background: black;
+  color: white;
+  border-color: black;
+}
+
+.links {
+  font-size: 0.85rem;
+  color: gray;
+  text-decoration: underline;
+  margin-bottom: 1.5rem;
+}
+
+.action-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.add-to-cart {
+  background: black;
+  color: white;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.quantity-control button {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.quantity-control span {
+  margin: 0 1rem;
+}
+
+.info-note {
+  font-size: 0.75rem;
+  color: gray;
+}
