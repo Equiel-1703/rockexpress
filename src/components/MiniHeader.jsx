@@ -55,7 +55,10 @@ export default function Header() {
           <Link to="/carrinho">CARRINHO</Link>
           <Link to="/checkout">CHECKOUT</Link>
           <Link to="/login">LOGIN/CADASTRO</Link>
-          <ShoppingCartRoundedIcon className='mini-header-shopping-cart' />
+
+          <Link to="/carrinho">
+            <ShoppingCartRoundedIcon className='mini-header-shopping-cart' />
+          </Link>
         </nav>
       </div>
     </header>

@@ -20,7 +20,10 @@ export default function Header() {
           </Link>
           <h1>Bem vindo(a) ao <br /> <strong>RockExpress</strong></h1>
         </div>
-        <ShoppingCartRoundedIcon className='header-shopping-cart' />
+
+        <Link to="/carrinho">
+          <ShoppingCartRoundedIcon className='header-shopping-cart' />
+        </Link>
       </div>
       <nav className="nav">
         <Link to="/">HOME</Link>
