@@ -1,5 +1,6 @@
+import '../styles/ProductCard.css';
+
 import { useNavigate } from 'react-router-dom';
-import './ProductCard.css';
 
 export default function ProductCard({ product }) {
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./ProductPage.css";
+import "../styles/ProductPage.css";
 
 const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState("");

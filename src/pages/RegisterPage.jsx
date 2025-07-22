@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./RegisterPage.css";
+import "../styles/RegisterPage.css";
 import { Link } from "react-router-dom";
 
 const RegisterPage = () => {

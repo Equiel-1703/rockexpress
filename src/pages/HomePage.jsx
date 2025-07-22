@@ -1,6 +1,11 @@
-import ProductCard from '../components/ProductCard';
-import './HomePage.css';
+import '../styles/HomePage.css';
 
+import '../components/Header';
+import ProductCard from '../components/ProductCard';
+import Header from '../components/Header';
+
+// Mock data for products
+// In the final application, this data will come from the backend
 const products = [
   { id: 1, name: 'Camiseta Taylor Swift', price: 99, image: '/produtos/camiseta-taylor-swift-xuxa.jfif' },
   { id: 2, name: 'Pipoca MC Pipokinha', price: 10, image: '/produtos/pipoca-mc-pipokinha.png' },
@@ -10,16 +15,18 @@ const products = [
   { id: 6, name: 'Quadro Jungkook BTS', price: 1199, image: '/produtos/jungkook copy.jpg' },
 ];
 
-
 export default function HomePage() {
   return (
-    <div className="home">
-      <h1>Exibindo {products.length} Produtos</h1>
-      <div className="product-grid">
-        {products.map((p) => (
-          <ProductCard key={p.id} product={p} />
-        ))}
+    <>
+      <Header />
+      <div className="home">
+        <h1>Exibindo {products.length} Produtos</h1>
+        <div className="product-grid">
+          {products.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

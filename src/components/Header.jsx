@@ -1,9 +1,10 @@
+import '../styles/Header.css';
+
 import { Link } from 'react-router-dom';
 import ShoppingCartRoundedIcon from '@mui/icons-material/ShoppingCartRounded';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
-import './Header.css';
 
 export default function Header() {
   return (
