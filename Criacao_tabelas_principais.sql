@@ -1,9 +1,9 @@
-create database rockexpress;
-
 CREATE TABLE usuario(
 ID BIGINT AUTO_INCREMENT PRIMARY KEY,
 nome VARCHAR(25) NOT NULL,
-email VARCHAR(50) NOT NULL,
+email VARCHAR(50) NOT NULL UNIQUE,
+cpf VARCHAR(11),
+cnpj VARCHAR(14),
 senha VARCHAR(12),
 data_cadastro DATE,
 ativo BIT(1) NOT NULL,
