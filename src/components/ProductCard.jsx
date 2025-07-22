@@ -1,11 +1,19 @@
+import { useNavigate } from 'react-router-dom';
 import './ProductCard.css';
 
 export default function ProductCard({ product }) {
+  const navigate = useNavigate();
+
+  const handleAddToCart = () => {
+    navigate('/carrinho');
+  };
+
   return (
     <div className="product-card">
-      <h2>{product.name}</h2>
+      <img src={product.image} alt={product.name} className="product-img" />
+      <h3>{product.name}</h3>
       <p>R$ {product.price}</p>
-      <button>Adicionar ao carrinho</button>
+      <button onClick={handleAddToCart}>Adicionar ao carrinho</button>
     </div>
   );
 }
