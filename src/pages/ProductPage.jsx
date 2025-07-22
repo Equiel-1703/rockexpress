@@ -1,5 +1,6 @@
-import React, { useState } from "react";
 import "../styles/ProductPage.css";
+
+import { useState } from "react";
 
 const ProductPage = () => {
   const [selectedSize, setSelectedSize] = useState("");
@@ -31,15 +32,13 @@ const ProductPage = () => {
             <p className="label">Cores</p>
             <div className="color-options">
               <div
-                className={`color black ${
-                  selectedColor === "black" ? "selected" : ""
-                }`}
+                className={`color black ${selectedColor === "black" ? "selected" : ""
+                  }`}
                 onClick={() => setSelectedColor("black")}
               ></div>
               <div
-                className={`color green ${
-                  selectedColor === "green" ? "selected" : ""
-                }`}
+                className={`color green ${selectedColor === "green" ? "selected" : ""
+                  }`}
                 onClick={() => setSelectedColor("green")}
               ></div>
             </div>
@@ -51,9 +50,8 @@ const ProductPage = () => {
               {["PP", "P", "M", "G", "GG", "XG"].map((size) => (
                 <button
                   key={size}
-                  className={`size-button ${
-                    selectedSize === size ? "active" : ""
-                  }`}
+                  className={`size-button ${selectedSize === size ? "active" : ""
+                    }`}
                   onClick={() => setSelectedSize(size)}
                 >
                   {size}

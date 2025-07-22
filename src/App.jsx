@@ -2,6 +2,9 @@ import './styles/App.css';
 
 import { Routes, Route } from 'react-router-dom';
 
+import Header from './components/Header';
+import MiniHeaderLayout from './components/MiniHeaderLayout';
+
 import HomePage from './pages/HomePage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
@@ -15,14 +18,23 @@ function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/produto/:id" element={<ProductPage />} />
-        <Route path="/carrinho" element={<CartPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/reviews" element={<ReviewsPage />} />
-        <Route path="/minha-loja" element={<SellerDashboardPage />} />
-        <Route path="/cadastro" element={<RegisterPage />} />
+        <Route path="/" element={
+          <>
+            <Header />
+            <HomePage />
+          </>
+        }
+        />
+
+        <Route element={<MiniHeaderLayout />}>
+          <Route path="/produto/:id" element={<ProductPage />} />
+          <Route path="/carrinho" element={<CartPage />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/reviews" element={<ReviewsPage />} />
+          <Route path="/minha-loja" element={<SellerDashboardPage />} />
+          <Route path="/cadastro" element={<RegisterPage />} />
+        </Route>
       </Routes>
     </div>
   );

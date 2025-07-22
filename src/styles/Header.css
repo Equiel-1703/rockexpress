@@ -2,6 +2,7 @@
 
 :root {
   --header-top-bottom-gap: 4rem;
+  --mini-header-top-bottom-gap: 1rem;
 }
 
 .header {
@@ -29,6 +30,16 @@
 
   margin-bottom: var(--header-top-bottom-gap);
   margin-top: var(--header-top-bottom-gap);
+}
+
+.mini-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+
+  margin-bottom: var(--mini-header-top-bottom-gap);
+  margin-top: var(--mini-header-top-bottom-gap);
 }
 
 .header-logo-text {
@@ -59,16 +70,39 @@
   object-fit: contain;
 }
 
+.mini-header-logo {
+  width: 10rem;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;
+}
+
 .header-shopping-cart {
   width: 5rem !important;
   height: 5rem !important;
   color: white;
 }
 
+.mini-header-shopping-cart {
+  width: 2rem !important;
+  height: 2rem !important;
+  color: white;
+}
+
 .nav {
   color: white;
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
+  gap: 1rem;
+}
+
+.mini-header-nav {
+  flex: 1;
+}
+
+.nav {
+  color: white;
+  display: flex;
+  align-items: flex-end;
   gap: 1rem;
 }
 

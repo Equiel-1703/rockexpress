@@ -1,8 +1,6 @@
 import '../styles/HomePage.css';
 
-import '../components/Header';
 import ProductCard from '../components/ProductCard';
-import Header from '../components/Header';
 
 // Mock data for products
 // In the final application, this data will come from the backend
@@ -17,16 +15,13 @@ const products = [
 
 export default function HomePage() {
   return (
-    <>
-      <Header />
-      <div className="home">
-        <h1>Exibindo {products.length} Produtos</h1>
-        <div className="product-grid">
-          {products.map((p) => (
-            <ProductCard key={p.id} product={p} />
-          ))}
-        </div>
+    <main className="home">
+      <h1>Exibindo {products.length} Produtos</h1>
+      <div className="product-grid">
+        {products.map((p) => (
+          <ProductCard key={p.id} product={p} />
+        ))}
       </div>
-    </>
+    </main>
   );
 }
