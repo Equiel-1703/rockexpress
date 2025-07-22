@@ -32,3 +32,45 @@ CREATE TABLE usuario_administrador(
 cpf VARCHAR(14) UNIQUE PRIMARY KEY,
 nivel_acesso INT
 );
+
+ CREATE TABLE produto (
+ ID BIGINT AUTO_INCREMENT PRIMARY KEY,
+ nome VARCHAR(50) NOT NULL,
+ descricao VARCHAR(120) NOT NULL,
+ preco DECIMAL NOT NULL,
+ estoque INT NOT NULL,
+ data_cadastro DATE,
+ ativo BIT(1) NOT NULL
+ );
+ 
+ CREATE TABLE categoria(
+ID MEDIUMINT AUTO_INCREMENT PRIMARY KEY,
+nome VARCHAR(20) UNIQUE NOT NULL,
+descricao VARCHAR(50)
+);
+
+CREATE TABLE carrinho(
+email_cliente VARCHAR(50),
+carrinho_id INT UNIQUE,
+quantidade_itens INT
+);
+
+CREATE TABLE item_carrinho(
+carrinho_id INT PRIMARY KEY,
+quantidade_item INT NOT NULL
+);
+
+CREATE TABLE pedido(
+ID BIGINT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+codigo_pedido VARCHAR(20) UNIQUE NOT NULL,
+status ENUM('ativo', 'finalizado', 'em andamento') NOT NULL,
+data DATE NOT NULL,
+valor_total DECIMAL NOT NULL
+);
+
+CREATE TABLE item_pedido(
+id_pedido BIGINT PRIMARY KEY,
+quantidade_item INT NOT NULL
+);
+
+ 
