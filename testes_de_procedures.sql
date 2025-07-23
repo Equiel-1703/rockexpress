@@ -29,7 +29,7 @@ CALL RemoverDados('categoria', 5, NULL, @mensagem);
 SELECT @mensagem;
 
 -- Remover usuário cliente por CPF usando a procedure unificada
-CALL RemoverDados('usuario_cliente_por_cpf', NULL, '12345678901', @mensagem);
+CALL RemoverUsuarioPorCPF('98765432109', @mensagem);
 SELECT @mensagem;
 
 
