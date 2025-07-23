@@ -1,17 +1,9 @@
 import '../styles/HomePage.css';
 
-import ProductCard from '../components/ProductCard';
+// Importing mock data for products
+import products from '../placeholders/products';
 
-// Mock data for products
-// In the final application, this data will come from the backend
-const products = [
-  { id: 1, name: 'Camiseta Taylor Swift', price: 99, image: '/produtos/camiseta-taylor-swift-xuxa.jfif' },
-  { id: 2, name: 'Pipoca MC Pipokinha', price: 10, image: '/produtos/pipoca-mc-pipokinha.png' },
-  { id: 3, name: 'Quadro Kanye West (Doação)', price: 0, image: '/produtos/ye.png' },
-  { id: 4, name: 'Funko Pop Xuxa', price: 59, image: '/produtos/funko-ts.jfif' },
-  { id: 5, name: 'CD CPM-22', price: 49, image: '/produtos/cd-cpm-22.png' },
-  { id: 6, name: 'Quadro Jungkook BTS', price: 1199, image: '/produtos/jungkook copy.jpg' },
-];
+import ProductCard from '../components/ProductCard';
 
 export default function HomePage() {
   return (
