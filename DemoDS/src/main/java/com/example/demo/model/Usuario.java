@@ -45,4 +45,8 @@ public abstract class Usuario {
 		this.nivelAcesso = nivelAcesso;
 		this.ativo = ativo;
 	}
+
+	public String getSenha() {
+		return this.senha;
+	}
 }

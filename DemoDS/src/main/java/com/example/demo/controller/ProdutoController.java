@@ -19,6 +19,18 @@ public class ProdutoController {
     public List<Produto> listar() {
         return produtoService.listarTodos();
     }
+    
+    @GetMapping("/buscar")
+    public List<Produto> buscarPorNomeComOrdenacao(
+        @RequestParam String nome,
+        @RequestParam(required = false) String sort) {
+        return produtoService.buscarPorNomeComOrdenacao(nome, sort);
+    }
+
+    @GetMapping("/ordenar")
+    public List<Produto> listarOrdenado(@RequestParam String sort) {
+        return produtoService.listarOrdenado(sort);
+    }
 
     @GetMapping("/{id}")
     public Optional<Produto> buscar(@PathVariable Long id) {

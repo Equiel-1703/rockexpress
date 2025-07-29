@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 import com.example.demo.enums.EnumStatusPedido;
@@ -45,7 +46,7 @@ public class Pedido {
 
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataCriacao;
+    private LocalDateTime dataInicio;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal valorTotal;
@@ -57,5 +58,22 @@ public class Pedido {
 	public Pedido() {
 
 	}
+
+
+	public void setStatus(String status2) {	
+		try {
+			this.status = EnumStatusPedido.valueOf(status2.toUpperCase());
+		} catch (IllegalArgumentException e) {
+			throw new RuntimeException("Status inválido: " + status2);
+		}
+		
+	}
+
+
+	public List<ItemPedido> getItens() {
+		return this.itens;	
+	}
+	
+	
 
 }

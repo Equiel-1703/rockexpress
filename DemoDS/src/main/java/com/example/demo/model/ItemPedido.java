@@ -25,4 +25,22 @@ public class ItemPedido {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal preco; // preço unitário na data do pedido
+
+	public int getPreco() {
+		return this.preco.intValue();
+	}
+
+	public ItemPedido() {
+	}
+
+	public ItemPedido(Pedido pedido, Produto produto, Integer quantidade, BigDecimal preco) {
+		this.pedido = pedido;
+		this.produto = produto;
+		this.quantidade = quantidade;
+		this.preco = preco;
+	}
+
+	public int getQuantidade() {
+		return this.quantidade;
+	}
 }

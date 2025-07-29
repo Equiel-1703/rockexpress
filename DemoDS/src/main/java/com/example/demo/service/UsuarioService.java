@@ -2,7 +2,13 @@ package com.example.demo.service;
 
 import com.example.demo.model.Usuario;
 import com.example.demo.repository.UsuarioRepository;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import java.util.List;
 
 @Service
@@ -32,4 +38,14 @@ public class UsuarioService {
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+    
+    public Usuario autenticar(String email, String senha) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario != null && usuario.getSenha().equals(senha)) {
+            return usuario; // login bem-sucedido
+        }
+        return null; // login falhou
+    }
+
+
 }
