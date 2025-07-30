@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -19,7 +20,9 @@ public class Categoria {
     @Column(length = 1000)
     private String descricao;
 
+
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Produto> produtos;
 
     // Construtor vazio exigido pelo JPA
