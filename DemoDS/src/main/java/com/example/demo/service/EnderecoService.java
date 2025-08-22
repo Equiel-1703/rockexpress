@@ -16,8 +16,8 @@ public class EnderecoService {
         return enderecoRepository.save(endereco);
     }
     
-    public List<Endereco> listarPorUsuario(Long usuarioId) {
+    public List<Endereco> listarPorUsuario(Long clienteId) {
         // Isso precisará ser implementado no repository
-        return enderecoRepository.findByUsuarioId(usuarioId);
+        return enderecoRepository.findByClienteId(clienteId);
     }
 }
