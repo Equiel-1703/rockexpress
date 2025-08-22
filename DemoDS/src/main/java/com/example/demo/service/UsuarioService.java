@@ -1,7 +1,12 @@
 package com.example.demo.service;
 
+import com.example.demo.dto.LoginRepose;
+import com.example.demo.model.Cliente;
+import com.example.demo.model.Endereco;
 import com.example.demo.model.Usuario;
+import com.example.demo.model.Vendedor;
 import com.example.demo.repository.UsuarioRepository;
+import com.example.demo.enums.*;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -49,23 +54,23 @@ public class UsuarioService {
     
     // Método para criar cliente
     public Cliente criarCliente(Cliente cliente) {
-        cliente.setNivelAcesso(EnumRole.ROLE_CLIENTE);
+        cliente.setNivelAcesso(EnumRole.CLIENTE);
         cliente.setAtivo(true);
         return (Cliente) usuarioRepository.save(cliente);
     }
     
     // Método para criar vendedor
     public Vendedor criarVendedor(Vendedor vendedor) {
-        vendedor.setNivelAcesso(EnumRole.ROLE_VENDEDOR);
+        vendedor.setNivelAcesso(EnumRole.VENDEDOR);
         vendedor.setAtivo(true);
         return (Vendedor) usuarioRepository.save(vendedor);
     }
     
     // Método para login
-    public LoginResponse login(String email, String senha) {
+    public LoginRepose login(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario != null && usuario.getSenha().equals(senha) && usuario.getAtivo()) {
-            return new LoginResponse(usuario.getId(), usuario instanceof Vendedor);
+            return new LoginRepose(usuario.getId(), usuario instanceof Vendedor);
         }
         return null;
     }
@@ -85,7 +90,7 @@ public class UsuarioService {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
         if (usuario instanceof Cliente) {
             Cliente cliente = (Cliente) usuario;
-            endereco.setUsuario(usuario); // Supondo que Endereco tenha um campo usuario
+            endereco.setCliente(cliente); // Supondo que Endereco tenha um campo usuario
             cliente.getEnderecos().add(endereco);
             return (Cliente) usuarioRepository.save(cliente);
         }

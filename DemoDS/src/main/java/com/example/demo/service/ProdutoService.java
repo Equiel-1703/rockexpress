@@ -1,10 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Produto;
+import com.example.demo.model.Vendedor;
 import com.example.demo.repository.ProdutoRepository;
+import com.example.demo.repository.VendedorRepository;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 

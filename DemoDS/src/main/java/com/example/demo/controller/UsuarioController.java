@@ -3,6 +3,17 @@ package com.example.demo.controller;
 import com.example.demo.model.Usuario;
 import com.example.demo.service.LoginRequest;
 import com.example.demo.service.UsuarioService;
+import com.example.demo.model.Usuario;
+import com.example.demo.model.Cliente;
+import com.example.demo.model.Vendedor;
+import com.example.demo.model.Endereco;
+import com.example.demo.service.UsuarioService;
+import com.example.demo.service.LoginRequest;
+import com.example.demo.dto.LoginRepose;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,8 +48,8 @@ public class UsuarioController {
     public void deletar(@PathVariable Long id) {
         usuarioService.deletar(id);
     }
-    
-    
+
+
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
         Usuario usuario = usuarioService.autenticar(request.getEmail(), request.getSenha());
@@ -48,23 +59,12 @@ public class UsuarioController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Email ou senha inválidos");
         }
     }
+}
 
-    package com.example.demo.controller;
 
-    import com.example.demo.model.Usuario;
-    import com.example.demo.model.Cliente;
-    import com.example.demo.model.Vendedor;
-    import com.example.demo.model.Endereco;
-    import com.example.demo.service.UsuarioService;
-    import com.example.demo.service.LoginRequest;
-    import com.example.demo.dto.LoginResponse;
-    import org.springframework.http.HttpStatus;
-    import org.springframework.http.ResponseEntity;
-    import org.springframework.web.bind.annotation.*;
 
-    import java.util.List;
 
-    @RestController
+/*    @RestController
     @RequestMapping("/usuarios")
     public class UsuarioController {
         private final UsuarioService usuarioService;
@@ -132,4 +132,4 @@ public class UsuarioController {
         
     }
 }
-}
+}*/
