@@ -1,50 +1,25 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.Produto;
-import com.example.demo.service.ProdutoService;
+import com.example.demo.model.Vendedor;
+import com.example.demo.service.VendedorService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:5173")
-@RequestMapping("/produtos")
-public class ProdutoController {
-    private final ProdutoService produtoService;
+@RequestMapping("/vendedores")
+public class VendedorController {
 
-    public ProdutoController(ProdutoService produtoService) {
-        this.produtoService = produtoService;
-    }
-
-    @GetMapping
-    public List<Produto> listar() {
-        return produtoService.listarTodos();
-    }
+    @Autowired
+    private VendedorService vendedorService;
     
-    @GetMapping("/buscar")
-    public List<Produto> buscarPorNomeComOrdenacao(
-        @RequestParam String nome,
-        @RequestParam(required = false) String sort) {
-        return produtoService.buscarPorNomeComOrdenacao(nome, sort);
-    }
-
-    @GetMapping("/ordenar")
-    public List<Produto> listarOrdenado(@RequestParam String sort) {
-        return produtoService.listarOrdenado(sort);
-    }
-
-    @GetMapping("/{id}")
-    public Optional<Produto> buscar(@PathVariable Long id) {
-        return produtoService.buscarPorId(id);
-    }
-
-    @PostMapping
-    public Produto salvar(@RequestBody Produto produto) {
-        return produtoService.salvar(produto);
-    }
-
-    @DeleteMapping("/{id}")
-    public void deletar(@PathVariable Long id) {
-        produtoService.deletar(id);
+    @GetMapping("/{id}/produtos")
+    public ResponseEntity<Vendedor> buscarComProdutos(@PathVariable Long id) {
+        try {
+            Vendedor vendedor = vendedorService.buscarComProdutos(id);
+            return ResponseEntity.ok(vendedor);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

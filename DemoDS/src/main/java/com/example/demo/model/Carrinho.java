@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,13 +30,44 @@ public class Carrinho {
         this.cliente = cliente;
     }
 
-     public void recalcularValorTotal() {
+    // GETTERS E SETTERS QUE FALTAM
+    public List<ItemCarrinho> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemCarrinho> itens) {
+        this.itens = itens;
+    }
+
+    public BigDecimal getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(BigDecimal valorTotal) {
+        this.valorTotal = valorTotal;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void recalcularValorTotal() {
         if (itens != null) {
             valorTotal = itens.stream()
                     .map(item -> item.getPreco().multiply(new BigDecimal(item.getQuantidade())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
-     }
-     
+    }
 }
-

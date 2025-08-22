@@ -10,7 +10,12 @@ import java.util.Optional;
 
 @Service
 public class ProdutoService {
-    private final ProdutoRepository produtoRepository;
+    
+    @Autowired
+    private ProdutoRepository produtoRepository;
+    
+    @Autowired
+    private VendedorRepository vendedorRepository;
 
     public ProdutoService(ProdutoRepository produtoRepository) {
         this.produtoRepository = produtoRepository;
@@ -54,5 +59,23 @@ public class ProdutoService {
         }
 
         return produtoRepository.findAll(ordenacao);
+    }
+    
+    
+    // Listar todos os produtos de um vendedor específico
+    public List<Produto> listarPorVendedor(Long vendedorId) {
+        return produtoRepository.findByVendedorId(vendedorId);
+    }
+    
+    // Adicionar um produto ao catálogo de um vendedor
+    @Transactional
+    public Produto adicionarProduto(Long vendedorId, Produto produto) {
+        Vendedor vendedor = vendedorRepository.findById(vendedorId)
+                .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
+        
+        produto.setVendedor(vendedor);
+        produto.setAtivo(true);
+        
+        return produtoRepository.save(produto);
     }
 }

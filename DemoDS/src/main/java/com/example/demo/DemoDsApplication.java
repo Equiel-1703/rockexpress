@@ -12,11 +12,5 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class DemoDsApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoDsApplication.class, args);
-	
-	
-	
-
-	
-	
 	}
 }

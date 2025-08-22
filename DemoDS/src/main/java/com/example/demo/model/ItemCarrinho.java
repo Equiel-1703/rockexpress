@@ -37,7 +37,44 @@ public class ItemCarrinho {
         this.preco = preco;
     }
 
-    public Integer getQuantidade() { return quantidade; }
+    // GETTERS E SETTERS QUE FALTAM
+    public Long getId() {
+        return id;
+    }
 
-    public BigDecimal getPreco() { return preco; }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Carrinho getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
+
+    public Integer getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(Integer quantidade) {
+        this.quantidade = quantidade;
+    }
+
+    public BigDecimal getPreco() {
+        return preco;
+    }
+
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
 }

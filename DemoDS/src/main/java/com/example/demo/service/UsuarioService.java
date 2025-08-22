@@ -46,6 +46,49 @@ public class UsuarioService {
         }
         return null; // login falhou
     }
-
-
+    
+    // Método para criar cliente
+    public Cliente criarCliente(Cliente cliente) {
+        cliente.setNivelAcesso(EnumRole.ROLE_CLIENTE);
+        cliente.setAtivo(true);
+        return (Cliente) usuarioRepository.save(cliente);
+    }
+    
+    // Método para criar vendedor
+    public Vendedor criarVendedor(Vendedor vendedor) {
+        vendedor.setNivelAcesso(EnumRole.ROLE_VENDEDOR);
+        vendedor.setAtivo(true);
+        return (Vendedor) usuarioRepository.save(vendedor);
+    }
+    
+    // Método para login
+    public LoginResponse login(String email, String senha) {
+        Usuario usuario = usuarioRepository.findByEmail(email);
+        if (usuario != null && usuario.getSenha().equals(senha) && usuario.getAtivo()) {
+            return new LoginResponse(usuario.getId(), usuario instanceof Vendedor);
+        }
+        return null;
+    }
+    
+    // Método para buscar endereços de um usuário
+    public List<Endereco> listarEnderecos(Long usuarioId) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        if (usuario instanceof Cliente) {
+            Cliente cliente = (Cliente) usuario;
+            return cliente.getEnderecos();
+        }
+        return null; // Vendedores não têm endereços
+    }
+    
+    // Método para adicionar endereço a um cliente
+    public Cliente adicionarEndereco(Long usuarioId, Endereco endereco) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        if (usuario instanceof Cliente) {
+            Cliente cliente = (Cliente) usuario;
+            endereco.setUsuario(usuario); // Supondo que Endereco tenha um campo usuario
+            cliente.getEnderecos().add(endereco);
+            return (Cliente) usuarioRepository.save(cliente);
+        }
+        return null; // Não é um cliente
+    }
 }
