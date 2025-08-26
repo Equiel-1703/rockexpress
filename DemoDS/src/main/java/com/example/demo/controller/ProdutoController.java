@@ -41,4 +41,17 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    // Listar N produtos do banco (não importa o vendedor). Retornar lista vazia se não houver produtos.
+    @GetMapping("/listar/{n}")
+    public ResponseEntity<List<Produto>> listarNProdutos(@PathVariable int n) {
+        System.out.println("Estou sendo chamado: produtos/listar/" + n);
+        try {
+            List<Produto> produtos = produtoService.listarNProdutos(n);
+            return ResponseEntity.ok(produtos);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
 }

@@ -65,7 +65,11 @@ public class ProdutoService {
 
         return produtoRepository.findAll(ordenacao);
     }
-    
+
+    // Listar N produtos do banco (não importa o vendedor). Retornar lista vazia se não houver produtos.
+    public List<Produto> listarNProdutos(int n) {
+        return produtoRepository.findAll(Sort.by("id")).stream().limit(n).toList();
+    }
     
     // Listar todos os produtos de um vendedor específico
     public List<Produto> listarPorVendedor(Long vendedorId) {
