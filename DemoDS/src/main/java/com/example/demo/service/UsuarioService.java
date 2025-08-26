@@ -6,18 +6,15 @@ import com.example.demo.model.Endereco;
 import com.example.demo.model.Usuario;
 import com.example.demo.model.Vendedor;
 import com.example.demo.repository.UsuarioRepository;
-import com.example.demo.enums.*;
+import com.example.demo.enums.EnumRole;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
 @Service
 public class UsuarioService {
+
     private final UsuarioRepository usuarioRepository;
 
     public UsuarioService(UsuarioRepository usuarioRepository) {
@@ -43,57 +40,56 @@ public class UsuarioService {
     public Usuario buscarPorEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
-    
+
     public Usuario autenticar(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
         if (usuario != null && usuario.getSenha().equals(senha)) {
-            return usuario; // login bem-sucedido
+            return usuario;
         }
-        return null; // login falhou
+        return null;
     }
-    
-    // Método para criar cliente
+
+    // Criar cliente
     public Cliente criarCliente(Cliente cliente) {
-        cliente.setNivelAcesso(EnumRole.CLIENTE);
-        cliente.setAtivo(true);
-        return (Cliente) usuarioRepository.save(cliente);
+        cliente.setNivelAcesso(EnumRole.CLIENTE); // setNivelAcesso existe via Lombok
+        cliente.setAtivo(true);                     // setAtivo existe via Lombok
+        return usuarioRepository.save(cliente);     // save retorna Usuario, mas podemos cast se quiser
     }
-    
-    // Método para criar vendedor
-    public Vendedor criarVendedor(Vendedor vendedor) {
-        vendedor.setNivelAcesso(EnumRole.VENDEDOR);
-        vendedor.setAtivo(true);
-        return (Vendedor) usuarioRepository.save(vendedor);
-    }
-    
-    // Método para login
+
+    // Login
     public LoginRepose login(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null && usuario.getSenha().equals(senha) && usuario.getAtivo()) {
+        if (usuario != null && usuario.getSenha().equals(senha) && usuario.isAtivo()) {
             return new LoginRepose(usuario.getId(), usuario instanceof Vendedor);
         }
         return null;
     }
-    
-    // Método para buscar endereços de um usuário
+
+    // Listar endereços
     public List<Endereco> listarEnderecos(Long usuarioId) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
-        if (usuario instanceof Cliente) {
-            Cliente cliente = (Cliente) usuario;
+        if (usuario instanceof Cliente cliente) {  // Pattern matching do Java 17+
             return cliente.getEnderecos();
         }
-        return null; // Vendedores não têm endereços
+        return null;
     }
-    
-    // Método para adicionar endereço a um cliente
+
+    // Adicionar endereço
     public Cliente adicionarEndereco(Long usuarioId, Endereco endereco) {
         Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
-        if (usuario instanceof Cliente) {
-            Cliente cliente = (Cliente) usuario;
-            endereco.setCliente(cliente); // Supondo que Endereco tenha um campo usuario
-            cliente.getEnderecos().add(endereco);
-            return (Cliente) usuarioRepository.save(cliente);
+        if (usuario instanceof Cliente cliente) {
+            cliente.adicionarEndereco(endereco); // usa método da entidade
+            return usuarioRepository.save(cliente);
         }
-        return null; // Não é um cliente
+        return null;
     }
+
+    // Criar vendedor
+    public Vendedor criarVendedor(Vendedor vendedor) {
+        vendedor.setNivelAcesso(EnumRole.VENDEDOR);
+        vendedor.setAtivo(true);
+        return usuarioRepository.save(vendedor);
+    }
+
+
 }

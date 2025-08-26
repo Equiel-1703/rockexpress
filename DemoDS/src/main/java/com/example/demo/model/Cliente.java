@@ -14,6 +14,9 @@ public class Cliente extends Usuario {
 	@Column(unique = true)
 	private String cpf;
 
+	@Column(unique = true)
+	private String cnpj;
+
 	@OneToOne(cascade = CascadeType.ALL )
 	private Carrinho carrinho;
 	

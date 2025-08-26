@@ -4,7 +4,6 @@ import com.example.demo.model.Produto;
 import com.example.demo.model.Vendedor;
 import com.example.demo.repository.ProdutoRepository;
 import com.example.demo.repository.VendedorRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -33,6 +32,7 @@ public class ProdutoService {
     public Optional<Produto> buscarPorId(Long id) {
         return produtoRepository.findById(id);
     }
+
 
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);

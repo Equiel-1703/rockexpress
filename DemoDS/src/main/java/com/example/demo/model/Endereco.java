@@ -36,6 +36,11 @@ public class Endereco {
     @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
+    @ManyToOne
+    @JoinColumn(name = "usuario_id")
+    private Usuario usuario;
+
+
     // Construtor vazio exigido pelo JPA
     public Endereco() {}
 
@@ -125,5 +130,6 @@ public class Endereco {
         this.cliente = cliente;
     }
 
-
+    public void setUsuario(Object o) {
+    }
 }

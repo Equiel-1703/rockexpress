@@ -29,4 +29,26 @@ public class Vendedor extends Usuario {
 	public Vendedor() {
 		super();
 	}
+
+    public String getNome() {
+		return null;
+    }
+
+	public String getEmail() {
+		return null;
+	}
+
+	public void setNome(Object nome) {
+	}
+
+	public void setEmail(Object email) {
+
+	}
+
+	public void setAtivo(boolean b) {
+	}
+
+	public String getCnpj() {
+		return cnpj;
+	}
 }

@@ -14,3 +14,4 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByNomeContainingIgnoreCase(String nome, Sort ordenacao);
 }
+

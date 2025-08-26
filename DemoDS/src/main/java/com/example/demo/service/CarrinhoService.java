@@ -7,8 +7,9 @@ import com.example.demo.model.Produto;
 import com.example.demo.repository.CarrinhoRepository;
 import com.example.demo.repository.ClienteRepository;
 import com.example.demo.repository.ProdutoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,14 +17,10 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Optional;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 @Service
 public class CarrinhoService {
 
     private static final Logger logger = LoggerFactory.getLogger(CarrinhoService.class);
-
 
     @Autowired
     private CarrinhoRepository carrinhoRepository;
@@ -38,6 +35,22 @@ public class CarrinhoService {
     public Carrinho getCarrinhoByClienteId(Long clienteId) {
         return carrinhoRepository.findByClienteIdWithItens(clienteId)
                 .orElseThrow(() -> new RuntimeException("Carrinho não encontrado para o cliente ID: " + clienteId));
+    }
+
+    @Transactional
+    public Carrinho adicionarProduto(Long clienteId, Long produtoId, Integer quantidade) {
+        logger.info("Método adicionarProduto - Cliente: {}, Produto: {}, Quantidade: {}",
+                clienteId, produtoId, quantidade);
+
+        try {
+            // Reutiliza a lógica do método adicionarItem
+            return adicionarItem(clienteId, produtoId, quantidade);
+
+        } catch (RuntimeException e) {
+            logger.error("Erro em adicionarProduto - Cliente: {}, Produto: {}, Erro: {}",
+                    clienteId, produtoId, e.getMessage());
+            throw e; // Re-lança a exceção para manter a mesma mensagem de erro
+        }
     }
 
     @Transactional
@@ -245,5 +258,4 @@ public class CarrinhoService {
         Carrinho novoCarrinho = new Carrinho(cliente);
         return carrinhoRepository.save(novoCarrinho);
     }
-
 }

@@ -15,7 +15,15 @@ public class ProdutoController {
 
     @Autowired
     private ProdutoService produtoService;
-    
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
+        return produtoService.buscarPorId(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+
     // Listar todos os produtos de um vendedor específico
     @GetMapping("/vendedor/{vendedorId}")
     public ResponseEntity<List<Produto>> listarPorVendedor(@PathVariable Long vendedorId) {
@@ -26,11 +34,11 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-    
+
     // Adicionar um produto ao catálogo de um vendedor
     @PostMapping("/vendedor/{vendedorId}")
     public ResponseEntity<Produto> adicionarProduto(
-            @PathVariable Long vendedorId, 
+            @PathVariable Long vendedorId,
             @RequestBody Produto produto) {
         try {
             Produto novoProduto = produtoService.adicionarProduto(vendedorId, produto);
@@ -53,5 +61,4 @@ public class ProdutoController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
-
 }
