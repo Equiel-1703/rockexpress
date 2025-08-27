@@ -1,8 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -69,5 +69,19 @@ public class Carrinho {
                     .map(item -> item.getPreco().multiply(new BigDecimal(item.getQuantidade())))
                     .reduce(BigDecimal.ZERO, BigDecimal::add);
         }
+    }
+
+    public Produto getProduto() {
+        if (itens != null && !itens.isEmpty()) {
+            return itens.get(0).getProduto();
+        }
+        return null;
+    }
+
+    public Integer getQuantidade() {
+        if (itens != null && !itens.isEmpty()) {
+            return itens.get(0).getQuantidade();
+        }
+        return 0;
     }
 }

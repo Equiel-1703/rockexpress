@@ -24,34 +24,45 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
-    // --- Cadastro de cliente/vendedor ---
+    // --- Cadastro de cliente ou vendedor ---
     @PostMapping("/register")
-    public Object cadastrarUsuario(@RequestBody UsuarioCadastroDTO dto) {
-        if ("cliente".equalsIgnoreCase(dto.getTipoConta())) {
-            Cliente cliente = new Cliente();
-            cliente.setNome(dto.getNome());
-            cliente.setEmail(dto.getEmail());
-            cliente.setSenha(dto.getSenha());
-            cliente.setCpf(dto.getCpf());
-            cliente.setNivelAcesso(EnumRole.CLIENTE);
-            cliente.setAtivo(true);
-            return usuarioService.criarCliente(cliente);
+    public ResponseEntity<?> cadastrarUsuario(@RequestBody UsuarioCadastroDTO dto) {
+        try {
+            if ("cliente".equalsIgnoreCase(dto.getTipoConta())) {
+                Cliente cliente = new Cliente();
+                cliente.setNome(dto.getNome());
+                cliente.setEmail(dto.getEmail());
+                cliente.setSenha(dto.getSenha());
+                cliente.setCpf(dto.getCpf());
+                cliente.setNivelAcesso(EnumRole.CLIENTE);
+                cliente.setAtivo(true);
 
-        } else if ("vendedor".equalsIgnoreCase(dto.getTipoConta())) {
-            Vendedor vendedor = new Vendedor();
-            vendedor.setNome(dto.getNome());
-            vendedor.setEmail(dto.getEmail());
-            vendedor.setSenha(dto.getSenha());
-            vendedor.setCnpj(dto.getCnpj());
-            vendedor.setNivelAcesso(EnumRole.VENDEDOR);
-            vendedor.setAtivo(true);
-            return usuarioService.criarVendedor(vendedor);
+                Cliente novoCliente = usuarioService.criarCliente(cliente);
+                return ResponseEntity.status(HttpStatus.CREATED).body(novoCliente);
 
-        } else {
-            throw new IllegalArgumentException("Tipo de conta inválido");
+            } else if ("vendedor".equalsIgnoreCase(dto.getTipoConta())) {
+                Vendedor vendedor = new Vendedor();
+                vendedor.setNome(dto.getNome());
+                vendedor.setEmail(dto.getEmail());
+                vendedor.setSenha(dto.getSenha());
+                vendedor.setCnpj(dto.getCnpj());
+                vendedor.setNivelAcesso(EnumRole.VENDEDOR);
+                vendedor.setAtivo(true);
+
+                Vendedor novoVendedor = usuarioService.criarVendedor(vendedor);
+                return ResponseEntity.status(HttpStatus.CREATED).body(novoVendedor);
+
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("message", "Tipo de conta inválido. Use 'cliente' ou 'vendedor'."));
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Erro ao cadastrar usuário", "error", e.getMessage()));
         }
     }
 
+    // --- Login ---
     // --- Login ---
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody Map<String, String> loginRequest) {
@@ -66,17 +77,27 @@ public class UsuarioController {
         }
 
         if (!usuario.getSenha().equals(senha)) {
-            // ⚠️ Em produção use BCrypt para verificar senhas!
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(Map.of("message", "Senha incorreta"));
         }
+        
+        Map<String, Object> response = new java.util.HashMap<>();
+        response.put("message", "Login realizado com sucesso");
+        response.put("usuarioId", usuario.getId());
+        response.put("email", usuario.getEmail());
+        response.put("nome", usuario.getNome());
+        response.put("nivelAcesso", usuario.getNivelAcesso().name());
 
-        return ResponseEntity.ok(Map.of(
-                "message", "Login realizado com sucesso",
-                "usuarioId", usuario.getId(),
-                "email", usuario.getEmail(),
-                "nome", usuario.getNome(),
-                "nivelAcesso", usuario.getNivelAcesso().name()
-        ));
+        // 🔑 Se for cliente, adiciona clienteId
+        if (usuario instanceof Cliente cliente) {
+            response.put("clienteId", cliente.getId());
+        }
+
+        // 🔑 Se for vendedor, adiciona vendedorId
+        if (usuario instanceof Vendedor vendedor) {
+            response.put("vendedorId", vendedor.getId());
+        }
+
+        return ResponseEntity.ok(response);
     }
 }
