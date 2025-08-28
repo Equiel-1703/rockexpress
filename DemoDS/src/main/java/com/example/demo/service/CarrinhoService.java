@@ -150,7 +150,7 @@ public class CarrinhoService {
         carrinho.recalcularValorTotal();
         carrinhoRepository.save(carrinho);
 
-      
+
         return toResponseDTO(carrinho);
     }
 
