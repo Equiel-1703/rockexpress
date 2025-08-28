@@ -96,4 +96,48 @@ public class CarrinhoController {
                     .body(e.getMessage());
         }
     }
+
+    @DeleteMapping("/{clienteId}/remover/{produtoId}")
+    public ResponseEntity<?> removerDoCarrinho(
+            @PathVariable Long clienteId,
+            @PathVariable Long produtoId) {
+        try {
+            CarrinhoResponseDTO carrinho = carrinhoService.removerProduto(clienteId, produtoId);
+
+            // Mapeia itens para DTO
+            List<CarrinhoResponseDTO.ItemDTO> itensDTO = carrinho.getItens().stream().map(item -> {
+                Produto produto = item.getProduto();
+                CarrinhoResponseDTO.ItemDTO dto = new CarrinhoResponseDTO.ItemDTO();
+                dto.setProdutoId((Long) produto.getId());
+                dto.setNomeProduto(produto.getNome());
+                dto.setQuantidade(item.getQuantidade());
+                dto.setPreco(item.getPreco());
+                return dto;
+            }).collect(Collectors.toList());
+
+            CarrinhoResponseDTO response = new CarrinhoResponseDTO();
+            response.setId(carrinho.getId());
+            response.setItens(itensDTO);
+            response.setValorTotal(carrinho.getValorTotal());
+
+            return ResponseEntity.ok(response);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
+    @PutMapping("/{clienteId}/atualizar/{produtoId}")
+    public ResponseEntity<?> atualizarQuantidade(
+            @PathVariable Long clienteId,
+            @PathVariable Long produtoId,
+            @RequestParam int quantidade) {
+        try {
+            CarrinhoResponseDTO carrinho = carrinhoService.atualizarQuantidade(clienteId, produtoId, quantidade);
+            return ResponseEntity.ok(carrinho);
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+
 }

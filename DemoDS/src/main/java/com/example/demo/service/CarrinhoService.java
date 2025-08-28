@@ -106,5 +106,68 @@ public class CarrinhoService {
                 .orElseThrow(() -> new RuntimeException("Carrinho não encontrado para o cliente ID: " + clienteId));
     }
 
-    // ... os outros métodos (atualizarQuantidadeItem, removerItem, limparCarrinho) podem ser mantidos como estão
+    public CarrinhoResponseDTO removerProduto(Long clienteId, Long produtoId) {
+        Carrinho carrinho = getCarrinhoByClienteId(clienteId);
+
+        boolean removed = carrinho.getItens().removeIf(item -> item.getProduto().getId().equals(produtoId));
+        if (!removed) {
+            throw new RuntimeException("Produto não encontrado no carrinho");
+        }
+
+        carrinho.recalcularValorTotal();
+        carrinhoRepository.save(carrinho);
+
+        // Converter para DTO de resposta
+        CarrinhoResponseDTO response = new CarrinhoResponseDTO();
+        response.setId(carrinho.getId());
+        response.setItens(carrinho.getItens().stream().map(item -> {
+            CarrinhoResponseDTO.ItemDTO dtoItem = new CarrinhoResponseDTO.ItemDTO();
+            dtoItem.setProdutoId((Long) item.getProduto().getId());
+            dtoItem.setNomeProduto(item.getProduto().getNome());
+            dtoItem.setQuantidade(item.getQuantidade());
+            dtoItem.setPreco(item.getPreco());
+            return dtoItem;
+        }).collect(Collectors.toList()));
+        response.setValorTotal(carrinho.getValorTotal());
+
+        return response;
+    }
+
+    public CarrinhoResponseDTO atualizarQuantidade(Long clienteId, Long produtoId, int delta) {
+        Carrinho carrinho = getCarrinhoByClienteId(clienteId);
+
+        carrinho.getItens().forEach(item -> {
+            if (item.getProduto().getId().equals(produtoId)) {
+                int novaQtd = item.getQuantidade() + delta;
+                if (novaQtd <= 0) {
+                    carrinho.getItens().remove(item); // remove se zerar
+                } else {
+                    item.setQuantidade(novaQtd);
+                }
+            }
+        });
+
+        carrinho.recalcularValorTotal();
+        carrinhoRepository.save(carrinho);
+
+      
+        return toResponseDTO(carrinho);
+    }
+
+    private CarrinhoResponseDTO toResponseDTO(Carrinho carrinho) {
+        CarrinhoResponseDTO response = new CarrinhoResponseDTO();
+        response.setId(carrinho.getId());
+        response.setItens(carrinho.getItens().stream().map(item -> {
+            CarrinhoResponseDTO.ItemDTO dtoItem = new CarrinhoResponseDTO.ItemDTO();
+            dtoItem.setProdutoId((Long) item.getProduto().getId());
+            dtoItem.setNomeProduto(item.getProduto().getNome());
+            dtoItem.setQuantidade(item.getQuantidade());
+            dtoItem.setPreco(item.getPreco());
+            return dtoItem;
+        }).collect(Collectors.toList()));
+        response.setValorTotal(carrinho.getValorTotal());
+        return response;
+    }
+
+
 }
