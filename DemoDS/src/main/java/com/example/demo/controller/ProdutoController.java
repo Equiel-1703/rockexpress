@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.ProdutoCreateDTO;
 import com.example.demo.model.Produto;
 import com.example.demo.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,14 +41,16 @@ public class ProdutoController {
     @PostMapping("/vendedor/{vendedorId}")
     public ResponseEntity<Produto> adicionarProduto(
             @PathVariable Long vendedorId,
-            @RequestBody Produto produto) {
+            @RequestBody ProdutoCreateDTO produto) {
         try {
             Produto novoProduto = produtoService.adicionarProduto(vendedorId, produto);
             return ResponseEntity.status(HttpStatus.CREATED).body(novoProduto);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(null);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(null);
         }
     }
 

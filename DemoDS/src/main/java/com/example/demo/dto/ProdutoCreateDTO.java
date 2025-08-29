@@ -9,5 +9,7 @@ public class ProdutoCreateDTO {
     private String descricao;
     private BigDecimal preco;
     private Integer estoque;
-    private Long categoriaId; // ID da categoria, se necessário
+    private Boolean ativo;
+    private String imagemBase64;
+//    private String tamanho;
 }

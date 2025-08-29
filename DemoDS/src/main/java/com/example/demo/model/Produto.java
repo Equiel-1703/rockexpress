@@ -30,6 +30,10 @@ public class Produto {
     @Column(nullable = false)
     private Integer estoque;
 
+    @Lob // Anotação para "Large Object" (Objeto Grande)
+    @Column(name = "imagem_base64", columnDefinition="TEXT") // Garante que a coluna no DB seja do tipo TEXT
+    private String imagemBase64;
+
     @Column(nullable = false, updatable = false)
     @CreationTimestamp
     private LocalDateTime dataCadastro;
@@ -57,13 +61,14 @@ public class Produto {
     public Produto() {}
 
     // Construtor com parâmetros úteis
-    public Produto(String nome, String descricao, BigDecimal preco, Integer estoque, Boolean ativo) {
+    public Produto(String nome, String descricao, BigDecimal preco, Integer estoque, Boolean ativo, String imagemBase64) {
         this.nome = nome;
         this.descricao = descricao;
         this.preco = preco;
         this.estoque = estoque;
         this.ativo = ativo;
         this.dataCadastro = LocalDateTime.now();
+        this.imagemBase64 = imagemBase64;
     }
 
     // Métodos de negócio
@@ -126,6 +131,14 @@ public class Produto {
 
     public void setPreco(BigDecimal preco) {
         this.preco = preco;
+    }
+
+    public String getImagemBase64() {
+        return imagemBase64;
+    }
+
+    public void setImagemBase64(String imagemBase64) {
+        this.imagemBase64 = imagemBase64;
     }
 
     public Integer getEstoque() {

@@ -14,41 +14,18 @@ import java.util.List;
 @Entity
 @EqualsAndHashCode(callSuper = true)
 public class Vendedor extends Usuario {
-	
-	@Column(unique = true)
-	private String cnpj;
-	
-	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
-	@JsonManagedReference
-	private List<Produto> produtos;
-	
-	@OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
-	private List<Pedido> pedidos;
-	
-	
-	public Vendedor() {
-		super();
-	}
 
-    public String getNome() {
-		return null;
+    @Column(unique = true)
+    private String cnpj;
+
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Produto> produtos;
+
+    @OneToMany(mappedBy = "vendedor", cascade = CascadeType.ALL)
+    private List<Pedido> pedidos;
+
+    public Vendedor() {
+        super();
     }
-
-	public String getEmail() {
-		return null;
-	}
-
-	public void setNome(Object nome) {
-	}
-
-	public void setEmail(Object email) {
-
-	}
-
-	public void setAtivo(boolean b) {
-	}
-
-	public String getCnpj() {
-		return cnpj;
-	}
 }

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.example.demo.dto.ProdutoCreateDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,13 +79,30 @@ public class ProdutoService {
     
     // Adicionar um produto ao catálogo de um vendedor
     @Transactional
-    public Produto adicionarProduto(Long vendedorId, Produto produto) {
+    public Produto adicionarProduto(Long vendedorId, ProdutoCreateDTO produtoDTO) {
+        // 1. Buscar apenas o vendedor
         Vendedor vendedor = vendedorRepository.findById(vendedorId)
-                .orElseThrow(() -> new RuntimeException("Vendedor não encontrado"));
-        
-        produto.setVendedor(vendedor);
-        produto.setAtivo(true);
-        
-        return produtoRepository.save(produto);
+                .orElseThrow(() -> new RuntimeException("Vendedor não encontrado!"));
+
+        // 2. Criar a nova entidade Produto
+        Produto novoProduto = new Produto();
+
+        // 3. Mapear os dados do DTO para a Entidade
+        novoProduto.setNome(produtoDTO.getNome());
+        novoProduto.setDescricao(produtoDTO.getDescricao());
+        novoProduto.setPreco(produtoDTO.getPreco());
+        novoProduto.setEstoque(produtoDTO.getEstoque());
+        novoProduto.setAtivo(produtoDTO.getAtivo());
+        novoProduto.setImagemBase64(produtoDTO.getImagemBase64());
+
+        // 4. Associar o vendedor
+        novoProduto.setVendedor(vendedor);
+
+        // 5. Deixar a categoria como nula (ou removê-la da entidade)
+        novoProduto.setCategoria(null);
+
+        // 6. Salvar no banco
+        return produtoRepository.save(novoProduto);
     }
+
 }

@@ -57,6 +57,7 @@ public class UsuarioController {
                         .body(Map.of("message", "Tipo de conta inválido. Use 'cliente' ou 'vendedor'."));
             }
         } catch (Exception e) {
+            e.printStackTrace(); // 👈 isso mostra o erro detalhado no console
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(Map.of("message", "Erro ao cadastrar usuário", "error", e.getMessage()));
         }
