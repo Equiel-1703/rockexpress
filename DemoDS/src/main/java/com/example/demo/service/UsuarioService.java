@@ -59,7 +59,7 @@ public class UsuarioService {
     // Login
     public LoginRepose login(String email, String senha) {
         Usuario usuario = usuarioRepository.findByEmail(email);
-        if (usuario != null && usuario.getSenha().equals(senha) && usuario.isAtivo()) {
+        if (usuario != null && usuario.getSenha().equals(senha) && usuario.getAtivo()) {
             return new LoginRepose(usuario.getId(), usuario instanceof Vendedor);
         }
         return null;
